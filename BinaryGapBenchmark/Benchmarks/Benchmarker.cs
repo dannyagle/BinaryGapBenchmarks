@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+
 using BinaryGap;
 
 namespace BinaryGapBenchmark.Benchmarks;
@@ -6,30 +7,21 @@ namespace BinaryGapBenchmark.Benchmarks;
 [MemoryDiagnoser]
 public class Benchmarker
 {
-    private readonly Gap _gapService;
-    private const int _value = 32;
+  private const int Value = 32;
 
-    public Benchmarker()
-    {
-        _gapService = new Gap();
-    }
+  private readonly Gap _gapService;
 
-    [Benchmark]
-    public void Shift()
-    {
-        _gapService.ShiftSolution(_value);
-    }
+  public Benchmarker() => _gapService = new Gap();
 
-    [Benchmark]
-    public void Linq()
-    {
-        _gapService.LinqSolution(_value);
-    }
+  [Benchmark]
+  public void Array() => _gapService.ArraySolution(Value);
 
-    [Benchmark]
-    public void Array()
-    {
-        _gapService.ArraySolution(_value);
-    }
+  [Benchmark]
+  public void Linq() => _gapService.LinqSolution(Value);
 
+  [Benchmark]
+  public void Shift() => _gapService.ShiftSolution(Value);
+
+  [Benchmark]
+  public void ShiftRight() => _gapService.ShiftRightSolution(Value);
 }
